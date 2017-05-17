@@ -25,12 +25,12 @@
     1º - Download the tool from github
          git clone https://github.com/M4sc3r4n0/avoidz.git
 
-    2º - Set setup script execution permitions
+    2º - Set setup script execution permission
          cd avoidz
          chmod +x setup.sh
 
     3°- Run setup script
-         ./setup.sh == to check dependecies
+         ./setup.sh == to check dependencies
 
     4°- Run avoidz tool == example
      ./avoidz.rb == help command
