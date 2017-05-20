@@ -132,7 +132,7 @@ def prep_PS_chunk(ps_shellcode)
 end 
 
 b = Artii::Base.new :font => 'slant'
-puts b.asciify('generate').red
+puts b.asciify('generate').light_red
 
 #/////////////////////CREATE_TEMP1_EXE_FORMAT\\\\\\\\\\\\\\\\\\\\#
 if $loutput == "temp1"
@@ -194,7 +194,7 @@ if msf_bool == 'Y'
 else
 		puts ""
 		puts options
-		puts "\n\n Bye!".yellow
+		puts "\n\n Good Bye!".yellow
 	end
 end
 #/////////////////////CREATE_TEMP2_EXE_FORMAT\\\\\\\\\\\\\\\\\\\\#
@@ -210,7 +210,7 @@ end
 
     powershell_encoded = gen_PS_shellcode()
 
-apacheTEMPLATE = %{#include <stdio.h>
+exe2TEMPLATE = %{#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -230,7 +230,7 @@ exit(0);
 
 #write out to a new file
 c_file_temp = File.new("c_file_temp.c", "w")
-c_file_temp.write(apacheTEMPLATE)
+c_file_temp.write(exe2TEMPLATE)
 c_file_temp.close
 
 #compiling will require MinGW installed - "apt-get install mingw32"
@@ -252,7 +252,7 @@ if msf_bool == 'Y'
 else
 		puts ""
 		puts options
-		puts "\n\n Bye!".yellow
+		puts "\n\n Good Bye!".yellow
 	end
 end
 #/////////////////////CREATE_TEMP3_EXE_FORMAT\\\\\\\\\\\\\\\\\\\\#
@@ -268,7 +268,7 @@ end
 
     powershell_encoded = gen_PS_shellcode()
 
-apacheTEMPLATE = %{// C#
+exe3TEMPLATE = %{// C#
 using System.Runtime.InteropServices;
 namespace pshcmd
 {
@@ -287,7 +287,7 @@ namespace pshcmd
 
 #write out to a new file
 c_file_temp = File.new("c_file_temp.c", "w")
-c_file_temp.write(apacheTEMPLATE)
+c_file_temp.write(exe3TEMPLATE)
 c_file_temp.close
 
 #compiling will require Monodevelop installed - "apt-get install monodevelop"
