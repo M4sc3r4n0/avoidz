@@ -2,7 +2,7 @@
 #
 # avoidz A.V bypass tool . version 1.3
 #
-# Generate encoded powershell with metasploit payloads,convert C, C#, py & go to EXE's format
+# Generate encoded powershell with metasploit payloads,convert C, C#, py & go Templates to EXE's format
 #
 #                  Created By Mascerano Bachir .
 #                 Website: http://www.dev-labs.co
